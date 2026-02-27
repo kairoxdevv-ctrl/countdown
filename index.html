@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Countdown</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background: radial-gradient(circle at center, #0f0f0f, #000000);
+            color: #00ffcc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: monospace;
+            font-size: 55px;
+            text-align: center;
+        }
+
+        #countdown {
+            text-shadow: 0 0 25px #00ffcc;
+        }
+    </style>
+</head>
+<body>
+
+<div id="countdown"></div>
+
+<script>
+    // 5 Mars 2026 kl 16:00 (lokal tid)
+    const targetDate = new Date(2026, 2, 5, 16, 0, 0).getTime();
+    // OBS: Månad är 0-indexerad (2 = mars)
+
+    const timer = setInterval(() => {
+
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+
+        if (distance <= 0) {
+            clearInterval(timer);
+            document.getElementById("countdown").innerHTML = "🚀 TIME!";
+            return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("countdown").innerHTML =
+            `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+    }, 1000);
+</script>
+
+</body>
+</html>
